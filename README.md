@@ -46,5 +46,6 @@ Via create-react-app (CRA) OR Vite (faster)
 ## 2023.05.02 CSS-IN-JS / STYLED-COMPONENTS
 
 // install styled-components and type definitions
-// $>npm i styled-components
-// $>npm i @types/styled-components
+- $>npm i styled-components
+- $>npm i @types/styled-components
+

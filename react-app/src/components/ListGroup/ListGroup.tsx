@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./ListGroup.css";
+import styled from "styled-components";
 
 interface Props {
   heading: string;
@@ -7,9 +8,26 @@ interface Props {
   onSelectItem: (item: string) => void;
 }
 
+interface ListItemProps {
+  active: boolean;
+}
+
+//embed styles in component
+const UnorderedList = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const ListItem = styled.li<ListItemProps>`
+  padding: 4px 0;
+  border-bottom: 1px solid #dddddd;
+  background: ${(props) => (props.active ? "blue" : "none")};
+  color: ${(props) => (props.active ? "white" : "black")};
+`;
+
 function ListGroup({ items, heading, onSelectItem }: Props) {
   // State Hook
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
     //implicity fragment ~ import { Fragment } from "react";
@@ -18,14 +36,10 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
 
       {items.length === 0 && <p>No items found!</p>}
 
-      <ul className="list-group">
+      <UnorderedList>
         {items.map((item, index) => (
-          <li
-            className={
-              selectedIndex === index
-                ? "list-group-item active"
-                : "list-group-item"
-            }
+          <ListItem
+            active={index == selectedIndex}
             key={item}
             onClick={() => {
               setSelectedIndex(index);
@@ -33,9 +47,9 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
             }}
           >
             {item}
-          </li>
+          </ListItem>
         ))}
-      </ul>
+      </UnorderedList>
     </>
   );
 }
